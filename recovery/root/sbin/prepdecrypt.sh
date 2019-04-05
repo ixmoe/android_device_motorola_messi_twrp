@@ -58,10 +58,12 @@ fi
 ###### NOTE: The below is no longer used but I'm keeping it here in case it is needed again at some point!
 mkdir -p /vendor/lib64/hw/
 
+cp /s/system/lib64/android.hardware.boot@1.0.so /sbin
+cp /s/system/lib64/android.hardware.confirmationui@1.0.so /sbin
 cp /s/system/lib64/android.hidl.base@1.0.so /sbin/
 cp /s/system/lib64/libicuuc.so /sbin/
-cp /s/system/lib64/libxml2.so /sbin/
 cp /s/system/lib64/libkeymaster_messages.so /sbin/
+cp /s/system/lib64/libxml2.so /sbin/
 
 relink /v/bin/qseecomd
 
@@ -70,19 +72,21 @@ cp /v/lib64/libdrmfs.so /vendor/lib64/
 cp /v/lib64/libdrmtime.so /vendor/lib64/
 cp /v/lib64/libGPreqcancel.so /vendor/lib64/
 cp /v/lib64/libGPreqcancel_svc.so /vendor/lib64/
-cp /v/lib64/libqdutils.so /vendor/lib64/
-cp /v/lib64/libqisl.so /vendor/lib64/
-cp /v/lib64/libqservice.so /vendor/lib64/
-cp /v/lib64/libQSEEComAPI.so /vendor/lib64/
-cp /v/lib64/librecovery_updater_msm.so /vendor/lib64/
-cp /v/lib64/librpmb.so /vendor/lib64/
-cp /v/lib64/libSecureUILib.so /vendor/lib64/
-cp /v/lib64/libssd.so /vendor/lib64/
-cp /v/lib64/libtime_genoff.so /vendor/lib64/
 cp /v/lib64/libkeymasterdeviceutils.so /vendor/lib64/
 cp /v/lib64/libkeymasterprovision.so /vendor/lib64/
 cp /v/lib64/libkeymasterutils.so /vendor/lib64/
+cp /v/lib64/libqdutils.so /vendor/lib64/
+cp /v/lib64/libqisl.so /vendor/lib64/
+cp /v/lib64/libQSEEComAPI.so /vendor/lib64/
+cp /v/lib64/libqservice.so /vendor/lib64/
+cp /v/lib64/libqtikeymaster4.so /vendor/lib64/
+cp /v/lib64/librecovery_updater_msm.so /vendor/lib64/
+cp /v/lib64/librpmb.so /vendor/lib64/
+cp /v/lib64/libSecureUILib.so /vendor/lib64/
+cp /v/lib64/libspcom.so /vendor/lib64/
 cp /v/lib64/libspl.so /vendor/lib64/
+cp /v/lib64/libssd.so /vendor/lib64/
+cp /v/lib64/libtime_genoff.so /vendor/lib64/
 cp /v/lib64/hw/bootctrl.msm8998.so /vendor/lib64/hw/
 cp /v/lib64/hw/gatekeeper.msm8998.so /vendor/lib64/hw/
 cp /v/lib64/hw/keystore.msm8998.so /vendor/lib64/hw/
@@ -90,8 +94,13 @@ cp /v/lib64/hw/android.hardware.boot@1.0-impl.so /vendor/lib64/hw/
 cp /v/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so /vendor/lib64/hw/
 cp /v/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so /vendor/lib64/hw/
 
-cp /v/manifest.xml /vendor/
-cp /v/compatibility_matrix.xml /vendor/
+if [ -f /v/manifest.xml ]; then
+  cp /v/manifest.xml /vendor/
+  cp /v/compatibility_matrix.xml /vendor/
+else
+  cp /v/etc/vintf/manifest.xml /vendor/
+  cp /v/etc/vintf/compatibility_matrix.xml /vendor/
+fi
 
 relink /v/bin/hw/android.hardware.boot@1.0-service
 relink /v/bin/hw/android.hardware.gatekeeper@1.0-service-qti
